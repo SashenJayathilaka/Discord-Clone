@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { doc, setDoc } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import OAuthButtons from "../components/OAuthButtons";
 import { auth, firestore } from "../firebase/firebase";
-import { addDoc, collection } from "firebase/firestore";
 
 function Singing({ setIsSignIn }) {
   const [userName, setUserName] = useState("");
@@ -26,11 +26,11 @@ function Singing({ setIsSignIn }) {
   };
 
   const createUserDocument = async (user) => {
-    await addDoc(
-      collection(firestore, "users"),
-      JSON.parse(JSON.stringify(user))
-    );
+    const userDocRef = doc(firestore, "users", user.uid);
+    await setDoc(userDocRef, JSON.parse(JSON.stringify(user)));
   };
+
+  /* console.log(userCred.user.uid); */
 
   useEffect(() => {
     if (userCred) {
