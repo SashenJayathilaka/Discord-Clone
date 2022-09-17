@@ -2,11 +2,10 @@ import { signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useHistory, useParams } from "react-router-dom";
-import Feed from "../components/Feed";
 import Header from "../components/Header";
-import ProfileSide from "../components/ProfileSide";
 import ProfileUpdate from "../components/ProfileUpdate";
 import { auth } from "../firebase/firebase";
+import "../styles/main.css";
 
 function BlogScreen() {
   const { id } = useParams();
@@ -31,29 +30,16 @@ function BlogScreen() {
         userPhoto={user?.photoURL}
         speed={speed}
         logout={logout}
+        setIsOpen={setIsOpen}
       />
 
-      {isOpen ? (
-        <ProfileUpdate />
-      ) : (
-        <main
-          className={
-            isOpen
-              ? `grid grid-cols-2 bg-gray-700`
-              : `grid grid-cols-3 bg-gray-700`
-          }
-        >
-          <ProfileSide
-            userName={user?.displayName}
-            userEmail={user?.email}
-            speed={speed}
-            logout={logout}
-            setIsOpen={setIsOpen}
-            isOpen={isOpen}
-          />
-          <Feed />
-        </main>
-      )}
+      <ProfileUpdate
+        userName={user?.displayName}
+        userEmail={user?.email}
+        speed={speed}
+        logout={logout}
+        id={id}
+      />
     </div>
   );
 }

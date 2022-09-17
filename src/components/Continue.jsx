@@ -42,11 +42,6 @@ function Continue() {
         data-mdb-ripple="true"
         data-mdb-ripple-color="light"
       >
-        {/*                 <img
-                  className="w-7 mr-5"
-                  src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-webinar-optimizing-for-success-google-business-webinar-13.png"
-                  alt=""
-                /> */}
         Continue with other provider
       </a>
     </>
