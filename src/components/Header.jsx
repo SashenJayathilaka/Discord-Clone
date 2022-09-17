@@ -1,11 +1,12 @@
 import React from "react";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import PersonIcon from "@material-ui/icons/Person";
 
-function Header({ userName, userPhoto, logout, speed }) {
+function Header({ userName, userPhoto, logout, speed, setIsOpen }) {
   return (
     <div>
       <header>
-        <nav className="navbar navbar-expand-lg shadow-md py-2 bg-gray-900 relative flex items-center w-full justify-between">
+        <nav className="navbar navbar-expand-lg shadow-md py-2 bg-gray-900  relative flex items-center w-full justify-between">
           <div className="px-6 w-full flex flex-wrap items-center justify-between">
             <div className="flex items-center">
               <button
@@ -60,13 +61,17 @@ function Header({ userName, userPhoto, logout, speed }) {
               </ul>
             </div>
           </div>
+          <PersonIcon
+            className="mr-5 cursor-pointer text-white"
+            onClick={() => setIsOpen(true)}
+          />
           <img
             src={
               userPhoto
                 ? userPhoto
                 : `https://avatars.dicebear.com/api/avataaars/${speed}.svg`
             }
-            class="rounded-full w-7 mr-5 cursor-pointer"
+            className="rounded-full w-7 mr-5 cursor-pointer"
             alt={userName}
             onClick={logout}
           />
