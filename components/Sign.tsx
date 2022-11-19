@@ -9,7 +9,7 @@ type SignProps = {
 const Sign: React.FC<SignProps> = ({ signInWithGoogle }) => {
   return (
     <div className="bg-discord_blue pb-8 md:pb-0">
-      <div className="p-7 py-9 h-screen md:h-[83vh] md:flex relative">
+      <div className="p-7 py-9 h-screen md:h-[83vh] md:flex relative overflow-x-hidden">
         <div className="flex flex-col gap-7 md:max-w-md lg:max-w-none lg:justify-center ">
           <h1 className="text-5xl text-white font-bold">IMAGINE A PLACE...</h1>
           <h2 className="text-white text-lg font-light tracking-wide lg:max-w-3xl w-full z-50">
@@ -28,7 +28,7 @@ const Sign: React.FC<SignProps> = ({ signInWithGoogle }) => {
             </button>
           </div>
         </div>
-        <div className="flex-grow overflow-hidden">
+        <div className="flex-grow">
           <img
             src="https://drive.google.com/uc?export=download&id=1rAb-Vh1ViLa_mANwo4EjFoJEYi5VraU8"
             alt=""
@@ -37,7 +37,7 @@ const Sign: React.FC<SignProps> = ({ signInWithGoogle }) => {
           <img
             src="https://drive.google.com/uc?export=download&id=1mXmUwiczchFZK0af4DCPgDsD4HIcRYWI"
             alt=""
-            className="hidden md:inline absolute overflow-hidden"
+            className="hidden md:inline absolute"
           />
         </div>
       </div>
