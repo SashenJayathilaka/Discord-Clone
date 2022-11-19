@@ -1,8 +1,21 @@
 import Head from "next/head";
+import React, { useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useRouter } from "next/router";
 
 import Container from "../components/Container";
+import { auth } from "../firebase/firebase";
 
 export default function Home() {
+  const [user] = useAuthState(auth);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/auth/signin");
+    } else return;
+  }, [user]);
+
   return (
     <div>
       <Head>

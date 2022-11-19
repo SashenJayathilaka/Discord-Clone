@@ -10,6 +10,10 @@ import {
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
+import { motion } from "framer-motion";
+import toast, { Toaster } from "react-hot-toast";
+
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 import useSelectFile from "../../hooks/useSelectFile";
 import bannerSelectFile from "../../hooks/bannerSelectFile";
@@ -34,68 +38,141 @@ const CreateServer: React.FC<CreateServerProps> = () => {
   const [serverType, setServerType] = useState("");
   const [adminName, setAdminName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleCreateCommunity = async () => {
     setLoading(true);
-    try {
-      const docRef = await addDoc(collection(firestore, "posts"), {
-        userId: user?.uid,
-        username: user?.displayName,
-        serverName: serverName,
-        profileImage: user?.photoURL,
-        company: user?.email,
-        serverCountry: serverCountry,
-        serverType: serverType,
-        adminName: adminName,
-        description: description,
-        timestamp: serverTimestamp() as Timestamp,
-      });
 
-      if (selectedFile) {
-        const imageRef = ref(storage, `posts/${docRef.id}/image`);
+    if (serverName && serverCountry && serverType && description && adminName) {
+      try {
+        const docRef = await addDoc(collection(firestore, "discord"), {
+          userId: user?.uid,
+          username: user?.displayName,
+          serverName: serverName,
+          profileImage: user?.photoURL,
+          company: user?.email,
+          serverCountry: serverCountry,
+          serverType: serverType,
+          adminName: adminName,
+          description: description,
+          timestamp: serverTimestamp() as Timestamp,
+        });
 
-        await uploadString(imageRef, selectedFile as string, "data_url").then(
-          async (snapshot) => {
+        if (selectedFile) {
+          const imageRef = ref(storage, `discord/${docRef.id}/avatar`);
+
+          await uploadString(imageRef, selectedFile as string, "data_url").then(
+            async (snapshot) => {
+              const downloadUrl = await getDownloadURL(imageRef);
+              await updateDoc(doc(firestore, "discord", docRef.id), {
+                avatarImage: downloadUrl,
+              });
+            }
+          );
+        } else {
+          console.log("No Image");
+        }
+
+        if (selectedFileb) {
+          const imageRef = ref(storage, `discord/${docRef.id}/banner`);
+
+          await uploadString(
+            imageRef,
+            selectedFileb as string,
+            "data_url"
+          ).then(async (snapshot) => {
             const downloadUrl = await getDownloadURL(imageRef);
-            await updateDoc(doc(firestore, "posts", docRef.id), {
-              avatarImage: downloadUrl,
-            });
-          }
-        );
-      } else {
-        console.log("No Image");
-      }
-
-      if (selectedFileb) {
-        const imageRef = ref(storage, `posts/${user?.uid}/image`);
-
-        await uploadString(imageRef, selectedFileb as string, "data_url").then(
-          async (snapshot) => {
-            const downloadUrl = await getDownloadURL(imageRef);
-            await updateDoc(doc(firestore, "posts", docRef.id), {
+            await updateDoc(doc(firestore, "discord", docRef.id), {
               bannerImage: downloadUrl,
             });
-          }
-        );
-      } else {
-        console.log("No Image");
+          });
+        } else {
+          console.log("No Image");
+        }
+        setSelectedFile("");
+        setAdminName("");
+        setServerName("");
+        setSelectedFileb("");
+        setDescription("");
+        setServerType("");
+        setServerCountry("");
+        setLoading(false);
+        router.push("/");
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
+    } else {
+      if (!serverName) {
+        toast.error("Server Name field is empty", {
+          duration: 2000,
+          style: {
+            background: "#fff",
+            color: "#015871",
+            fontWeight: "bolder",
+            fontSize: "17px",
+            padding: "20px",
+          },
+        });
+        setError("error");
+      } else if (!serverCountry) {
+        toast.error("Server region field is empty", {
+          duration: 2000,
+          style: {
+            background: "#fff",
+            color: "#015871",
+            fontWeight: "bolder",
+            fontSize: "17px",
+            padding: "20px",
+          },
+        });
+      } else if (!description) {
+        toast.error("Description field is empty", {
+          duration: 2000,
+          style: {
+            background: "#fff",
+            color: "#015871",
+            fontWeight: "bolder",
+            fontSize: "17px",
+            padding: "20px",
+          },
+        });
+      } else if (!adminName) {
+        toast.error("Admin Name field is empty", {
+          duration: 2000,
+          style: {
+            background: "#fff",
+            color: "#015871",
+            fontWeight: "bolder",
+            fontSize: "17px",
+            padding: "20px",
+          },
+        });
+      } else if (!serverType) {
+        toast.error("Server Type field is empty", {
+          duration: 2000,
+          style: {
+            background: "#fff",
+            color: "#015871",
+            fontWeight: "bolder",
+            fontSize: "17px",
+            padding: "20px",
+          },
+        });
+      } else return;
     }
-    setSelectedFile("");
-    setAdminName("");
-    setServerName("");
-    setSelectedFileb("");
-    setDescription("");
-    setServerType("");
-    setServerCountry("");
     setLoading(false);
-    router.push("/");
   };
 
   return (
-    <div className="p-4 px-10">
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      className={
+        loading ? `p-4 px-10 animate-pulse cursor-not-allowed` : `p-4 px-10`
+      }
+    >
+      <Toaster />
       <div>
         <p className="text-[28px] text-white font-black">SERVER OVERVIEW</p>
       </div>
@@ -171,9 +248,11 @@ const CreateServer: React.FC<CreateServerProps> = () => {
                 value={serverName}
                 onChange={(e) => setServerName(e.target.value)}
               />
-              <p className="text-red-500 text-xs italic">
-                Please fill out this field.
-              </p>
+              {error && (
+                <p className="text-red-500 text-xs italic">
+                  Please fill out this field.
+                </p>
+              )}
             </div>
             <div className="w-full md:w-1/2 px-3">
               <label
@@ -279,13 +358,22 @@ const CreateServer: React.FC<CreateServerProps> = () => {
           </div>
         </form>
         {/* form end */}
-        <button
-          type="button"
-          className="mb-2 mt-6 w-full inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-normal uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-          onClick={handleCreateCommunity}
-        >
-          Create Server
-        </button>
+        {loading ? (
+          <button
+            type="button"
+            className="mb-2 mt-6 w-full inline-block px-6 py-2.5 bg-blue-600  animate-pulse cursor-not-allowed text-white font-medium text-xs leading-normal uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+          >
+            <AiOutlineLoading3Quarters className="animate-spin m-auto text-xl" />
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="mb-2 mt-6 w-full inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-normal uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+            onClick={handleCreateCommunity}
+          >
+            Create Server
+          </button>
+        )}
         <div>
           <input
             ref={selectedFileRef}
@@ -295,7 +383,7 @@ const CreateServer: React.FC<CreateServerProps> = () => {
           />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 export default CreateServer;

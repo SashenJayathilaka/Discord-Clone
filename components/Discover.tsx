@@ -23,14 +23,22 @@ type DiscoverProps = {};
 
 const Discover: React.FC<DiscoverProps> = () => {
   const discoverData = [
-    { title: "Home", icon: <AiFillCompass /> },
-    { title: "Gaming", icon: <GiConsoleController /> },
-    { title: "Music", icon: <BsMusicNoteBeamed /> },
-    { title: "Education", icon: <FaGraduationCap /> },
-    { title: "Science & tech", icon: <TbAtom /> },
-    { title: "Content Creator", icon: <BsFillPlayCircleFill /> },
-    { title: "Anime & Manga", icon: <BsFillEmojiSmileFill /> },
-    { title: "Movies & TV", icon: <FiMonitor /> },
+    { title: "Home", icon: <AiFillCompass />, isNavigate: true },
+    { title: "Gaming", icon: <GiConsoleController />, isNavigate: false },
+    { title: "Music", icon: <BsMusicNoteBeamed />, isNavigate: true },
+    { title: "Education", icon: <FaGraduationCap />, isNavigate: false },
+    { title: "Science & tech", icon: <TbAtom />, isNavigate: true },
+    {
+      title: "Content Creator",
+      icon: <BsFillPlayCircleFill />,
+      isNavigate: false,
+    },
+    {
+      title: "Anime & Manga",
+      icon: <BsFillEmojiSmileFill />,
+      isNavigate: true,
+    },
+    { title: "Movies & TV", icon: <FiMonitor />, isNavigate: false },
   ];
 
   const [user] = useAuthState(auth);
@@ -43,7 +51,12 @@ const Discover: React.FC<DiscoverProps> = () => {
 
         <div className="mt-4 space-y-4">
           {discoverData.map((data, index) => (
-            <Topic key={index} title={data.title} icon={data.icon} />
+            <Topic
+              key={index}
+              title={data.title}
+              icon={data.icon}
+              isNavigate={data.isNavigate}
+            />
           ))}
         </div>
       </div>
