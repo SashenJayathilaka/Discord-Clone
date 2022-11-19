@@ -32,12 +32,12 @@ const Sign: React.FC<SignProps> = ({ signInWithGoogle }) => {
           <img
             src="https://drive.google.com/uc?export=download&id=1rAb-Vh1ViLa_mANwo4EjFoJEYi5VraU8"
             alt=""
-            className="absolute left-[100px] mt-16 sm:-left-44 md:hidden"
+            className="absolute -left-36 mt-16 sm:-left-44 md:hidden"
           />
           <img
             src="https://drive.google.com/uc?export=download&id=1mXmUwiczchFZK0af4DCPgDsD4HIcRYWI"
             alt=""
-            className="hidden left-[400px] md:inline absolute"
+            className="hidden md:inline absolute"
           />
         </div>
       </div>
