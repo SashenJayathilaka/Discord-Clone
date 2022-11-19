@@ -13,7 +13,7 @@ const Featured: React.FC<FeaturedProps> = () => {
   useEffect(
     () =>
       onSnapshot(
-        query(collection(firestore, "posts"), orderBy("timestamp", "desc")),
+        query(collection(firestore, "discord"), orderBy("timestamp", "desc")),
         (snapshot) => {
           setCardData(snapshot.docs);
         }
@@ -34,14 +34,7 @@ const Featured: React.FC<FeaturedProps> = () => {
       <div className="grid grid-cols-1 xs:grid-cols-2   lg:grid-cols-3 gap-y-8 xs:gap-x-2 sm:gap-x-4 mb-4  ">
         {cardData.map((card) => (
           <Card
-            userId={card.data().userId}
-            username={card.data().username}
             serverName={card.data().serverName}
-            profileImage={card.data().profileImage}
-            company={card.data().company}
-            serverCountry={card.data().serverCountry}
-            serverType={card.data().serverType}
-            adminName={card.data().adminName}
             avatarImage={card.data().avatarImage}
             bannerImage={card.data().bannerImage}
             description={card.data().description}

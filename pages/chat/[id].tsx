@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
+import { onSnapshot, query, collection, orderBy } from "firebase/firestore";
 
 import Groups from "../../components/Groups";
 import ServerToolBar from "../../components/ServerToolBar";
 import ChatContent from "../../components/ChatContent";
+import { firestore } from "../../firebase/firebase";
 
 type ChatScreenProps = {};
 
 const ChatScreen: React.FC<ChatScreenProps> = () => {
+  const [cardData, setCardData] = useState<any[]>([]);
+
+  useEffect(
+    () =>
+      onSnapshot(
+        query(collection(firestore, "discord"), orderBy("timestamp", "desc")),
+        (snapshot) => {
+          setCardData(snapshot.docs);
+        }
+      ),
+    [firestore]
+  );
+
   return (
     <div className="flex bg-[#393943] overflow-hidden h-screen">
       <Head>
@@ -20,7 +35,9 @@ const ChatScreen: React.FC<ChatScreenProps> = () => {
       </Head>
       <Groups />
       <ServerToolBar />
-      <ChatContent />
+      {cardData.map((data) => (
+        <ChatContent key={data.id} docIds={data.id} />
+      ))}
     </div>
   );
 };

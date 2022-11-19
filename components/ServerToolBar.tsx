@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { motion } from "framer-motion";
 
 import { FaHeadphones } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
@@ -7,6 +8,7 @@ import { MdKeyboardVoice } from "react-icons/md";
 
 import { Book, Chevron, Hashtag, Speakerphone } from "../icons";
 import { auth } from "../firebase/firebase";
+import LogOut from "./LogOut";
 
 type ServerToolBarProps = {};
 
@@ -14,9 +16,15 @@ const ServerToolBar: React.FC<ServerToolBarProps> = () => {
   const [user] = useAuthState(auth);
   const [internal, setinternal] = useState(false);
   const [botChat, setBotChat] = useState(false);
+  const [isShow, setIsShow] = useState(false);
 
   return (
-    <div className="hidden xl:flex flex-col justify-between bg-[#303136] w-[18rem] shrink-0  h-screen sticky top-0">
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      className="hidden xl:flex flex-col justify-between bg-[#303136] w-[18rem] shrink-0  h-screen sticky top-0"
+    >
       <div className="p-4">
         <div className="flex gap-4 items-center text-center mb-4">
           <svg
@@ -32,7 +40,7 @@ const ServerToolBar: React.FC<ServerToolBarProps> = () => {
             />
           </svg>
 
-          <p className="text-white font-bold text-[18px]">First Server</p>
+          <p className="text-white font-bold text-[18px]">Discord Server</p>
         </div>
 
         <hr />
@@ -196,7 +204,10 @@ const ServerToolBar: React.FC<ServerToolBarProps> = () => {
 
       {/* Profile Settings */}
       <div className="bg-[#292b2f] h-[5rem] flex text-white/80 items-center px-4 justify-between">
-        <div className="flex items-center ">
+        <div
+          className="flex items-center cursor-pointer"
+          onClick={() => (isShow ? setIsShow(false) : setIsShow(true))}
+        >
           <img
             src={user?.photoURL as string}
             alt=""
@@ -208,13 +219,19 @@ const ServerToolBar: React.FC<ServerToolBarProps> = () => {
           </div>
         </div>
 
-        <div className=" flex space-x-3 text-[20px]">
-          <MdKeyboardVoice />
-          <FaHeadphones />
-          <IoMdSettings className=" " />
-        </div>
+        {isShow ? (
+          <div className=" flex space-x-3 text-[20px]">
+            <LogOut />
+          </div>
+        ) : (
+          <div className=" flex space-x-3 text-[20px]">
+            <MdKeyboardVoice />
+            <FaHeadphones />
+            <IoMdSettings />
+          </div>
+        )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 export default ServerToolBar;

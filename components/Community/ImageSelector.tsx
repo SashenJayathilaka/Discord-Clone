@@ -18,7 +18,7 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
   return (
     <div className="py-6">
       <label
-        className="block uppercase tracking-wide text-gray-200 text-xs font-bold mb-2"
+        className="block uppercase tracking-wide text-gray-200 text-sm font-bold mb-2"
         htmlFor="grid-first-name"
       >
         Banner Image
