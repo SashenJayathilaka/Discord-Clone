@@ -28,7 +28,7 @@ const Sign: React.FC<SignProps> = ({ signInWithGoogle }) => {
             </button>
           </div>
         </div>
-        <div className="flex-grow overflow-x-hidden">
+        <div className="flex-grow overflow-hidden">
           <img
             src="https://drive.google.com/uc?export=download&id=1rAb-Vh1ViLa_mANwo4EjFoJEYi5VraU8"
             alt=""
@@ -37,7 +37,7 @@ const Sign: React.FC<SignProps> = ({ signInWithGoogle }) => {
           <img
             src="https://drive.google.com/uc?export=download&id=1mXmUwiczchFZK0af4DCPgDsD4HIcRYWI"
             alt=""
-            className="hidden md:inline absolute"
+            className="hidden md:inline absolute overflow-hidden"
           />
         </div>
       </div>
