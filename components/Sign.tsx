@@ -28,7 +28,7 @@ const Sign: React.FC<SignProps> = ({ signInWithGoogle }) => {
             </button>
           </div>
         </div>
-        <div className="flex-grow">
+        <div className="flex-grow overflow-x-hidden">
           <img
             src="https://drive.google.com/uc?export=download&id=1rAb-Vh1ViLa_mANwo4EjFoJEYi5VraU8"
             alt=""
