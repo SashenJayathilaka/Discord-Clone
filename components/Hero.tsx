@@ -21,7 +21,7 @@ const Hero: React.FC<HeroProps> = () => {
           Find your community on Discord
         </p>
         <p className="pb-2 text-[13.5px] md:text-[17px]    text-white/70">
-          From gaming, to music, to study, there's a place for you.
+          {`From gaming, to music, to study, there's a place for you.`}
         </p>
         <div className="relative flex items-center      mb-4">
           <input

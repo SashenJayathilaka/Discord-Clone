@@ -26,7 +26,7 @@ const Featured: React.FC<FeaturedProps> = () => {
       <div className="text-white pb-4">
         <p className="font-bold text-[20px]">Featured Servers</p>
         <p className="text-white/50">
-          Some awesome Discords we think you'd love
+          {`Some awesome Discords we think you'd love`}
         </p>
       </div>
 

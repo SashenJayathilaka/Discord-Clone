@@ -287,7 +287,7 @@ const CreateServer: React.FC<CreateServerProps> = () => {
                 onChange={(e) => setDescription(e.target.value)}
               />
               <p className="text-gray-300 text-xs italic">
-                Make it as long and as crazy as you'd like
+                {`Make it as long and as crazy as you'd like`}
               </p>
             </div>
           </div>

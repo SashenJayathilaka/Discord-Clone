@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
+import Link from "next/link";
 
 import { AiOutlineMenu } from "react-icons/ai";
 
@@ -9,13 +10,13 @@ type LoginHeaderProps = {
 const LoginHeader: React.FC<LoginHeaderProps> = ({ signInWithGoogle }) => {
   return (
     <header className="bg-discord_blue flex items-center justify-between py-4 px-6">
-      <a href="/">
+      <Link href="/">
         <img
           src="https://drive.google.com/uc?export=download&id=1S8tEe7EeI9DBKkcyai6EttwydMuzlLWk"
           className="w-32 h-12 object-contain"
           alt=""
         />
-      </a>
+      </Link>
       <div className="hidden lg:flex  space-x-6 ">
         <a className="link">Download</a>
         <a className="link">Why Discord?</a>
