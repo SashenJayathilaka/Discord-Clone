@@ -60,11 +60,9 @@ const Card: React.FC<CardProps> = ({
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       className="w-full cursor-pointer"
+      onClick={handleNavigatePage}
     >
-      <div
-        className="h-40 flex w-full cursor-pointer"
-        onClick={handleNavigatePage}
-      >
+      <div className="h-40 flex w-full cursor-pointer">
         {bannerImage ? (
           <img
             src={bannerImage}

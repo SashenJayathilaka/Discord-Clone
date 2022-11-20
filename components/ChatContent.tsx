@@ -1,7 +1,6 @@
 import {
   addDoc,
   collection,
-  doc,
   onSnapshot,
   orderBy,
   query,
@@ -35,6 +34,7 @@ const ChatContent: React.FC<ChatContentProps> = ({ docIds }) => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [chatMessage, setChatMessage] = useState<any[]>([]);
+  const messageEndRef = useRef<null | HTMLDivElement>(null);
 
   const sendMessage = async (e: any) => {
     e.preventDefault();
@@ -56,13 +56,6 @@ const ChatContent: React.FC<ChatContentProps> = ({ docIds }) => {
 
         if (selectedFile) {
           const imageRef = ref(storage, `discordChat/${docRef.id}/chat`);
-          const secondDocRed = doc(
-            firestore,
-            "discord",
-            docId as string,
-            "chat",
-            docRef.id
-          );
 
           await uploadString(imageRef, selectedFile as string, "data_url").then(
             async (snapshot) => {
@@ -100,7 +93,7 @@ const ChatContent: React.FC<ChatContentProps> = ({ docIds }) => {
     () =>
       onSnapshot(
         query(
-          collection(firestore, "discord", docId as string, "chat"),
+          collection(firestore, "discord", docIds, "chat"),
           orderBy("timestamp", "asc")
         ),
         (snapshot) => {
@@ -110,7 +103,9 @@ const ChatContent: React.FC<ChatContentProps> = ({ docIds }) => {
     [firestore]
   );
 
-  /*   firestore, "discord", docId as string, "chat" */
+  useEffect(() => {
+    messageEndRef.current?.scrollIntoView();
+  }, [chatMessage]);
 
   return (
     <>
@@ -158,6 +153,7 @@ const ChatContent: React.FC<ChatContentProps> = ({ docIds }) => {
                 )}
               </div>
             ))}
+            <div ref={messageEndRef} />
           </div>
           <div className="pb-6 px-4 flex-none">
             {selectedFile && (
@@ -187,7 +183,7 @@ const ChatContent: React.FC<ChatContentProps> = ({ docIds }) => {
                 <img
                   src={selectedFile}
                   alt=""
-                  className="max-w-xs h-auto  rounded-md border border-gray-500 px-2 py-2 cursor-pointer"
+                  className="max-w-xs max-h-60  rounded-md border border-gray-500 px-2 py-2 cursor-pointer"
                   onClick={() => setSelectedFile("")}
                 />
               </motion.div>

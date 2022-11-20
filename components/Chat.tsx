@@ -23,6 +23,7 @@ const Chat: React.FC<ChatProps> = ({
   message,
 }) => {
   const [user] = useAuthState(auth);
+
   return (
     <motion.div
       initial={{
@@ -33,8 +34,8 @@ const Chat: React.FC<ChatProps> = ({
       whileInView={{ opacity: 1, x: 0 }}
       className={
         matchId === user?.uid
-          ? `border-b border-gray-600 py-3 flex mb-4 text-sm bg-gray-600 rounded-md`
-          : `border-b border-gray-600 py-3 flex items-start mb-4 text-sm    `
+          ? `border-b border-gray-600 py-3 flex mb-4 text-sm bg-gray-600 rounded-md px-2`
+          : `border-b border-gray-600 py-3 flex items-start mb-4 text-sm px-2`
       }
     >
       <img
@@ -61,7 +62,7 @@ const Chat: React.FC<ChatProps> = ({
             <img
               src={chatImage}
               alt=""
-              className="max-w-xs h-auto  rounded-md border border-yellow-200 px-2 py-2"
+              className="max-w-xs max-h-60 rounded-md border border-yellow-200 px-2 py-2"
             />
           </div>
         )}
