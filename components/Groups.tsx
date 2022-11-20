@@ -34,7 +34,7 @@ const Groups: React.FC<GroupsProps> = () => {
   );
 
   return (
-    <div className="hidden sm:flex bg-[#212226] w-[6rem] shrink-0 h-screen sticky top-0 pt-6">
+    <div className="hidden sm:flex bg-[#212226] w-[6rem] shrink-0 h-screen sticky top-0 pt-6 overflow-y-scroll scrollbar-hide">
       <div className="flex flex-col items-center w-full space-y-4">
         <motion.div
           whileHover={{ scale: 1.1 }}
