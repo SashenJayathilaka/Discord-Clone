@@ -12,6 +12,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import toast, { Toaster } from "react-hot-toast";
+import { shuffle } from "lodash";
 
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
@@ -19,6 +20,13 @@ import useSelectFile from "../../hooks/useSelectFile";
 import bannerSelectFile from "../../hooks/bannerSelectFile";
 import ImageSelector from "./ImageSelector";
 import { auth, firestore, storage } from "../../firebase/firebase";
+
+const sideBarImage = [
+  "https://i.postimg.cc/ZK7ngyd5/img1.png",
+  "https://i.postimg.cc/Gm623wz0/img2.png",
+  "https://i.postimg.cc/qRTvns9j/img3.png",
+  "https://i.postimg.cc/W4r4hWfd/img4.png",
+];
 
 type CreateServerProps = {};
 
@@ -189,39 +197,46 @@ const CreateServer: React.FC<CreateServerProps> = () => {
               <img
                 src={selectedFile}
                 alt=""
-                className="object-cover rounded-full w-24 h-24 cursor-pointer hover:shadow-lg"
-                onClick={() => setSelectedFile("")}
+                className="object-cover rounded-full w-[108px] h-[108px] cursor-pointer hover:shadow-lg"
+                onClick={() => !loading && setSelectedFile("")}
               />
               <p className="text-sm text-white py-2">maximum size 128x128</p>
             </div>
           ) : (
             <div>
               <img
-                src="https://i.postimg.cc/W4r4hWfd/img4.png"
-                alt=""
-                className="object-cover rounded-full w-24 h-24 cursor-pointer hover:shadow-lg"
-                onClick={() => selectedFileRef.current?.click()}
+                src={shuffle(sideBarImage).pop()}
+                alt="avtar/img"
+                className="object-cover rounded-full w-[108px] h-[108px] cursor-pointer hover:shadow-lg animate-pulse border border-gray-500 px-2 py-2"
+                onClick={() => !loading && selectedFileRef.current?.click()}
               />
               <p className="text-sm text-white py-2">maximum size 128x128</p>
             </div>
           )}
-
-          {selectedFile ? (
-            <button
-              onClick={() => setSelectedFile("")}
-              type="button"
-              className="-mt-8 -ml-4 inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-            >
-              Remove Image
-            </button>
-          ) : (
-            <button
-              onClick={() => selectedFileRef.current?.click()}
-              type="button"
-              className="-mt-8 -ml-4 inline-block px-6 py-2 border-2 border-gray-400 text-gray-400 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-            >
-              Uplode Image
-            </button>
+          {!loading && (
+            <div>
+              {selectedFile ? (
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setSelectedFile("")}
+                  type="button"
+                  className="-mt-8 -ml-4 inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                >
+                  Remove Image
+                </motion.button>
+              ) : (
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => selectedFileRef.current?.click()}
+                  type="button"
+                  className="-mt-8 -ml-4 inline-block px-6 py-2 border-2 border-discord_blurple text-discord_blurple font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                >
+                  Uplode Image
+                </motion.button>
+              )}
+            </div>
           )}
         </div>
         <ImageSelector
@@ -229,6 +244,7 @@ const CreateServer: React.FC<CreateServerProps> = () => {
           setSelectedFileb={setSelectedFileb}
           onSelectedFileb={onSelectedFileb}
           selectedFileRefb={selectedFileRefb}
+          loading={loading}
         />
         {/* form */}
         <form className="w-full max-w-lg">
@@ -361,14 +377,14 @@ const CreateServer: React.FC<CreateServerProps> = () => {
         {loading ? (
           <button
             type="button"
-            className="mb-2 mt-6 w-full inline-block px-6 py-2.5 bg-blue-600  animate-pulse cursor-not-allowed text-white font-medium text-xs leading-normal uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+            className="mb-2 mt-6 w-full inline-block px-6 py-2.5 bg-discord_green  animate-pulse cursor-not-allowed text-white font-medium text-xs leading-normal uppercase rounded shadow-md hover:bg-discord_blue hover:shadow-lg focus:bg-discord_blue focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
           >
             <AiOutlineLoading3Quarters className="animate-spin m-auto text-xl" />
           </button>
         ) : (
           <button
             type="button"
-            className="mb-2 mt-6 w-full inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-normal uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+            className="mb-2 mt-6 w-full inline-block px-6 py-2.5 bg-discord_green text-white font-medium text-xs leading-normal uppercase rounded shadow-md hover:bg-discord_blue hover:shadow-lg focus:bg-discord_blue focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
             onClick={handleCreateCommunity}
           >
             Create Server

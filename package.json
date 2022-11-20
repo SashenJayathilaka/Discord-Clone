@@ -26,6 +26,7 @@
     "react-firebase-hooks": "^5.1.1",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.6.0",
+    "react-loader-spinner": "^5.3.4",
     "tailwind-scrollbar-hide": "^1.1.7",
     "typescript": "4.9.3"
   },

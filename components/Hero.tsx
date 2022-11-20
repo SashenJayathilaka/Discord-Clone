@@ -25,7 +25,7 @@ const Hero: React.FC<HeroProps> = () => {
         </p>
         <div className="relative flex items-center      mb-4">
           <input
-            type="search "
+            type="search"
             placeholder="Explore servers"
             className="rounded-[0.3rem] pl-3 placeholder:text-[14px]  md:placeholder:text-[16px] placeholder:text-gray-500 outline-0     py-2 md:py-3 w-[25rem] md:w-[35rem] text-black"
           />

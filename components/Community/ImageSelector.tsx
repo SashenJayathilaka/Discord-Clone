@@ -1,12 +1,12 @@
-import React, { useRef, useEffect } from "react";
-
-import bannerSelectFile from "../../hooks/bannerSelectFile";
+import { motion } from "framer-motion";
+import React from "react";
 
 type ImageSelectorProps = {
   selectedFileb: any;
   setSelectedFileb: any;
   onSelectedFileb: any;
   selectedFileRefb: any;
+  loading: boolean;
 };
 
 const ImageSelector: React.FC<ImageSelectorProps> = ({
@@ -14,6 +14,7 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
   setSelectedFileb,
   onSelectedFileb,
   selectedFileRefb,
+  loading,
 }) => {
   return (
     <div className="py-6">
@@ -29,30 +30,40 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
             <img
               src={selectedFileb}
               alt=""
-              className="max-w-sm h-auto  rounded-md"
+              className="max-w-xs max-h-fit  rounded-md cursor-pointer border border-gray-500 px-2 py-2"
+              onClick={() => !loading && setSelectedFileb("")}
             />
-            <button
-              onClick={() => setSelectedFileb("")}
-              type="button"
-              className="-mt-8 -ml-4 inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-            >
-              Remove Image
-            </button>
+            {!loading && (
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setSelectedFileb("")}
+                type="button"
+                className="-mt-8 -ml-4 inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+              >
+                Remove Image
+              </motion.button>
+            )}
           </div>
         ) : (
           <div className="flex items-end gap-14">
             <img
-              src="https://th.bing.com/th/id/R.ec15083dabd0bb490cc809814354c2be?rik=0FHa5ssxIUI48w&pid=ImgRaw&r=0"
+              src="https://drive.google.com/uc?export=download&id=165KeFfXloGEmSNSJonKTpx_QWV7Tqg6O"
               alt=""
-              className="max-w-sm h-auto  rounded-md"
+              className="max-w-sm max-h-36 rounded-md animate-pulse cursor-pointer border border-gray-500 px-2 py-2"
+              onClick={() => !loading && selectedFileRefb.current?.click()}
             />
-            <button
-              onClick={() => selectedFileRefb.current?.click()}
-              type="button"
-              className="-mt-8 -ml-4 inline-block px-6 py-2 border-2 border-gray-400 text-gray-400 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-            >
-              Uplode Image
-            </button>
+            {!loading && (
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => selectedFileRefb.current?.click()}
+                type="button"
+                className="-mt-8 -ml-4 inline-block px-6 py-2 border-2 border-discord_blurple text-discord_blurple font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+              >
+                Uplode Image
+              </motion.button>
+            )}
           </div>
         )}
       </div>
