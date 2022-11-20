@@ -1,14 +1,13 @@
 <div align="center">
 
-  <img src="https://pnggrid.com/wp-content/uploads/2021/05/Discord-Logo-Square-1024x1024.png" alt="logo" width="205" height="auto" />
+  <img src="https://user-images.githubusercontent.com/99184393/202888401-e3d28b8c-0c58-4951-880f-869ef4fc711f.png" alt="logo" width="205" height="auto" />
   
   <h1>Discord 2.0 with REACT.JS</h1>
   
   <p>
 Discord 2.0 with REACT.JS! (Next.js, Tailwind CSS, Typescript, Server create, Firebase v9, Image Uploading, Google Authentication, 1-1 Messaging, Real Time Messenger )
   </p>
-  
-  
+
 <!-- Badges -->
 
 <a href="https://clone-sproject.vercel.app" target="_blank">![](https://img.shields.io/website-up-down-green-red/http/monip.org.svg)</a>
