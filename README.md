@@ -5,7 +5,7 @@
   <h1>Discord 2.0 with REACT.JS</h1>
   
   <p>
-Discord 2.0 with REACT.JS! (Next.js, Tailwind CSS, Typescript, Server create, Firebase v9, Image Uploading, Google Authentication, 1-1 Messaging, Real Time Messenger )
+Discord 2.0 with REACT.JS! (Next.js, Tailwind CSS, Typescript, Server create, Firebase v9, Image sharing, Google Authentication, 1-1 Messaging, Real Time Messenger )
   </p>
 
 <!-- Badges -->
