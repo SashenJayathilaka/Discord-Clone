@@ -1,23 +1,21 @@
 import React, { useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useSession } from "next-auth/react";
 
 import { AiFillCompass } from "react-icons/ai";
-import { GiConsoleController } from "react-icons/gi";
 import {
-  BsMusicNoteBeamed,
-  BsFillPlayCircleFill,
   BsFillEmojiSmileFill,
+  BsFillPlayCircleFill,
+  BsMusicNoteBeamed,
 } from "react-icons/bs";
-import { FaGraduationCap } from "react-icons/fa";
-import { TbAtom } from "react-icons/tb";
+import { FaGraduationCap, FaHeadphones } from "react-icons/fa";
 import { FiMonitor } from "react-icons/fi";
-import { MdKeyboardVoice } from "react-icons/md";
-import { FaHeadphones } from "react-icons/fa";
+import { GiConsoleController } from "react-icons/gi";
 import { IoMdSettings } from "react-icons/io";
+import { MdKeyboardVoice } from "react-icons/md";
+import { TbAtom } from "react-icons/tb";
 
-import Topic from "./Topic";
 import LogOut from "./LogOut";
-import { auth } from "../firebase/firebase";
+import Topic from "./Topic";
 
 type DiscoverProps = {};
 
@@ -41,7 +39,7 @@ const Discover: React.FC<DiscoverProps> = () => {
     { title: "Movies & TV", icon: <FiMonitor />, isNavigate: false },
   ];
 
-  const [user] = useAuthState(auth);
+  const { data: session } = useSession();
   const [isShow, setIsShow] = useState(false);
 
   return (
@@ -68,12 +66,12 @@ const Discover: React.FC<DiscoverProps> = () => {
           onClick={() => (isShow ? setIsShow(false) : setIsShow(true))}
         >
           <img
-            src={user?.photoURL as string}
+            src={session?.user?.image as string}
             alt=""
             className="w-12 h-12 rounded-full"
           />
           <div className=" pl-2">
-            <p>{user?.displayName}</p>
+            <p>{session?.user?.name}</p>
             <p className="text-[14px] text-gray-400">#12345</p>
           </div>
         </div>

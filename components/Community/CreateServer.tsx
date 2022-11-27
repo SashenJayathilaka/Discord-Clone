@@ -1,25 +1,25 @@
-import React, { useRef, useState } from "react";
 import {
   addDoc,
   collection,
+  doc,
   serverTimestamp,
   Timestamp,
   updateDoc,
-  doc,
 } from "firebase/firestore";
-import { ref, uploadString, getDownloadURL } from "firebase/storage";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useRouter } from "next/router";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { motion } from "framer-motion";
-import toast, { Toaster } from "react-hot-toast";
 import { shuffle } from "lodash";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import React, { useRef, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
-import useSelectFile from "../../hooks/useSelectFile";
+import { firestore, storage } from "../../firebase/firebase";
 import bannerSelectFile from "../../hooks/bannerSelectFile";
+import useSelectFile from "../../hooks/useSelectFile";
 import ImageSelector from "./ImageSelector";
-import { auth, firestore, storage } from "../../firebase/firebase";
 
 const sideBarImage = [
   "https://i.postimg.cc/ZK7ngyd5/img1.png",
@@ -31,7 +31,7 @@ const sideBarImage = [
 type CreateServerProps = {};
 
 const CreateServer: React.FC<CreateServerProps> = () => {
-  const [user] = useAuthState(auth);
+  const { data: session }: any = useSession();
   const router = useRouter();
   const { selectedFile, setSelectedFile, onSelectedFile } = useSelectFile();
   const selectedFileRef = useRef<HTMLInputElement>(null);
@@ -54,11 +54,11 @@ const CreateServer: React.FC<CreateServerProps> = () => {
     if (serverName && serverCountry && serverType && description && adminName) {
       try {
         const docRef = await addDoc(collection(firestore, "discord"), {
-          userId: user?.uid,
-          username: user?.displayName,
+          userId: session?.user?.uid,
+          username: session?.user?.name,
           serverName: serverName,
-          profileImage: user?.photoURL,
-          company: user?.email,
+          profileImage: session?.user?.image,
+          company: session?.user?.email,
           serverCountry: serverCountry,
           serverType: serverType,
           adminName: adminName,
@@ -337,10 +337,8 @@ const CreateServer: React.FC<CreateServerProps> = () => {
                   className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-state"
                 >
-                  <option>Home</option>
                   <option>Gaming</option>
                   <option>Music</option>
-                  <option>Home</option>
                   <option>Education</option>
                   <option>Science & tech</option>
                   <option>Content Creator</option>

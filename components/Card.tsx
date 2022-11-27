@@ -1,11 +1,9 @@
-import React from "react";
-import { useRouter } from "next/router";
 import { faker } from "@faker-js/faker";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { shuffle } from "lodash";
 import { motion } from "framer-motion";
-
-import { auth } from "../firebase/firebase";
+import { shuffle } from "lodash";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import React from "react";
 
 const sideBarImage = [
   "https://i.postimg.cc/ZK7ngyd5/img1.png",
@@ -37,11 +35,11 @@ const Card: React.FC<CardProps> = ({
   bannerImage,
   id,
 }) => {
-  const [user] = useAuthState(auth);
+  const { data: session }: any = useSession();
   const router = useRouter();
 
   const handleNavigatePage = () => {
-    if (user) {
+    if (session) {
       router.push({
         pathname: `/chat/${id}`,
         query: {

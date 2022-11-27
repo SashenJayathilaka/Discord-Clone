@@ -1,20 +1,22 @@
+import { getSession } from "next-auth/react";
 import Head from "next/head";
-import React, { useEffect } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 import Container from "../components/Container";
-import { auth } from "../firebase/firebase";
 
-export default function Home() {
-  const [user] = useAuthState(auth);
+type Props = {
+  session: any;
+};
+
+export default function Home({ session }: Props) {
   const router = useRouter();
 
   useEffect(() => {
-    if (!user) {
+    if (!session) {
       router.push("/auth/signin");
     } else return;
-  }, [user]);
+  }, [session]);
 
   return (
     <div>
@@ -31,4 +33,14 @@ export default function Home() {
       </main>
     </div>
   );
+}
+
+export async function getServerSideProps(context: any) {
+  const session = await getSession(context);
+
+  return {
+    props: {
+      session: session,
+    },
+  };
 }

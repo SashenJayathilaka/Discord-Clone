@@ -1,19 +1,18 @@
-import React, { useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
+import React, { useState } from "react";
 
 import { FaHeadphones } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
 import { MdKeyboardVoice } from "react-icons/md";
 
 import { Book, Chevron, Hashtag, Speakerphone } from "../icons";
-import { auth } from "../firebase/firebase";
 import LogOut from "./LogOut";
 
 type ServerToolBarProps = {};
 
 const ServerToolBar: React.FC<ServerToolBarProps> = () => {
-  const [user] = useAuthState(auth);
+  const { data: session }: any = useSession();
   const [internal, setinternal] = useState(false);
   const [botChat, setBotChat] = useState(false);
   const [isShow, setIsShow] = useState(false);
@@ -209,12 +208,12 @@ const ServerToolBar: React.FC<ServerToolBarProps> = () => {
           onClick={() => (isShow ? setIsShow(false) : setIsShow(true))}
         >
           <img
-            src={user?.photoURL as string}
+            src={session?.user?.image as string}
             alt=""
             className="w-12 h-12 rounded-full"
           />
           <div className=" pl-2">
-            <p>{user?.displayName}</p>
+            <p>{session?.user?.name}</p>
             <p className="text-[14px] text-gray-400">#12345</p>
           </div>
         </div>
