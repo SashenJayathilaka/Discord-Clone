@@ -1,12 +1,11 @@
 import React from "react";
+import { signIn } from "next-auth/react";
 
 import { AiOutlineDownload } from "react-icons/ai";
 
-type SignProps = {
-  signInWithGoogle: any;
-};
+type SignProps = {};
 
-const Sign: React.FC<SignProps> = ({ signInWithGoogle }) => {
+const Sign: React.FC<SignProps> = () => {
   return (
     <div className="bg-discord_blue pb-8 md:pb-0">
       <div className="p-7 py-9 h-screen md:h-[83vh] md:flex relative overflow-x-hidden">
@@ -22,7 +21,7 @@ const Sign: React.FC<SignProps> = ({ signInWithGoogle }) => {
             </button>
             <button
               className="bg-gray-900 text-white w-72 font-medium flex items-center justify-center rounded-full p-4 text-lg hover:shadow-2xl hover:bg-gray-800 focus:outline-none transition duration-200 ease-in-out"
-              onClick={() => signInWithGoogle()}
+              onClick={() => signIn("google", { callbackUrl: "/" })}
             >
               Open Discord in your browser
             </button>

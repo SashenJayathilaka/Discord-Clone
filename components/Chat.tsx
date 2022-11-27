@@ -1,9 +1,7 @@
 import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useSession } from "next-auth/react";
 import moment from "moment";
 import { motion } from "framer-motion";
-
-import { auth } from "../firebase/firebase";
 
 type ChatProps = {
   chatImage: any;
@@ -22,18 +20,18 @@ const Chat: React.FC<ChatProps> = ({
   profileImage,
   message,
 }) => {
-  const [user] = useAuthState(auth);
+  const { data: session }: any = useSession();
 
   return (
     <motion.div
       initial={{
-        x: matchId === user?.uid ? 200 : -200,
+        x: matchId === session?.user?.uid ? 200 : -200,
         opacity: 0,
       }}
       transition={{ duration: 1 }}
       whileInView={{ opacity: 1, x: 0 }}
       className={
-        matchId === user?.uid
+        matchId === session?.user?.uid
           ? `border-b border-gray-600 py-3 flex mb-4 text-sm bg-gray-600 rounded-md px-2`
           : `border-b border-gray-600 py-3 flex items-start mb-4 text-sm px-2`
       }

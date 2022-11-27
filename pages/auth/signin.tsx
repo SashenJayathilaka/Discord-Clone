@@ -1,27 +1,13 @@
-import React, { useEffect } from "react";
-import Head from "next/head";
 import { motion } from "framer-motion";
-import { useRouter } from "next/router";
-import { useAuthState, useSignInWithGoogle } from "react-firebase-hooks/auth";
+import Head from "next/head";
+import React from "react";
 
 import LoginHeader from "../../components/LoginHeader";
 import Sign from "../../components/Sign";
-import { auth } from "../../firebase/firebase";
 
 type SigninProps = {};
 
 const Signin: React.FC<SigninProps> = () => {
-  const [user] = useAuthState(auth);
-  const router = useRouter();
-  const [signInWithGoogle, userCred, loading, error] =
-    useSignInWithGoogle(auth);
-
-  useEffect(() => {
-    if (user) {
-      router.push("/");
-    } else return;
-  }, [user]);
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -36,8 +22,8 @@ const Signin: React.FC<SigninProps> = () => {
           href="https://th.bing.com/th/id/R.d248fb5cf17f6dd4d50a0ec816e3d1fa?rik=JZcf3Y7HNivrdw&pid=ImgRaw&r=0"
         />
       </Head>
-      <LoginHeader signInWithGoogle={signInWithGoogle} />
-      <Sign signInWithGoogle={signInWithGoogle} />
+      <LoginHeader />
+      <Sign />
     </motion.div>
   );
 };

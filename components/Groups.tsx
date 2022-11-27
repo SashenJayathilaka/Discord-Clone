@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { AiFillCompass } from "react-icons/ai";
 import { FiPlus } from "react-icons/fi";
-import { auth, firestore } from "../firebase/firebase";
+import { firestore } from "../firebase/firebase";
 import SideGroupList from "./SideGroupList";
 
 const sideBarImage = [
@@ -19,7 +19,7 @@ const sideBarImage = [
 type GroupsProps = {};
 
 const Groups: React.FC<GroupsProps> = () => {
-  const [user] = useAuthState(auth);
+  const { data: session }: any = useSession();
   const [cardData, setCardData] = useState<any[]>([]);
 
   useEffect(
@@ -58,7 +58,7 @@ const Groups: React.FC<GroupsProps> = () => {
         <div className="space-y-2 pt-4">
           {cardData.map((card) => (
             <div key={card.id}>
-              {card.data().userId === user?.uid && (
+              {card.data().userId === session?.user?.uid && (
                 <SideGroupList card={card} sideBarImage={sideBarImage} />
               )}
             </div>

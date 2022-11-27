@@ -17,7 +17,6 @@ Discord 2.0 with REACT.JS! (Next.js, Tailwind CSS, Typescript, Server create, Fi
 ![](https://img.shields.io/github/issues/SashenJayathilaka/Discord-Clone)
 ![](https://img.shields.io/github/last-commit/SashenJayathilaka/Discord-Clone)
 
-   
 <h4>
     <a href="https://projects-seven-peach.vercel.app">View Demo</a>
   <span> · </span>
@@ -32,20 +31,22 @@ Discord 2.0 with REACT.JS! (Next.js, Tailwind CSS, Typescript, Server create, Fi
 <br />
 
 <!-- Table of Contents -->
+
 ## :notebook_with_decorative_cover: Table of Contents
 
 - [About the Project](#star2-about-the-project)
-  * [Screenshots](#camera-screenshots)
-  * [Tech Stack](#space_invader-tech-stack)
-  * [Environment Variables](#key-environment-variables)
+  - [Screenshots](#camera-screenshots)
+  - [Tech Stack](#space_invader-tech-stack)
+  - [Environment Variables](#key-environment-variables)
 - [Getting Started](#toolbox-getting-started)
-  * [Prerequisites](#bangbang-prerequisites)
-  * [Installation](#gear-installation)
-  * [Run Locally](#running-run-locally)
-  * [Deployment](#triangular_flag_on_post-deployment)
+  - [Prerequisites](#bangbang-prerequisites)
+  - [Installation](#gear-installation)
+  - [Run Locally](#running-run-locally)
+  - [Deployment](#triangular_flag_on_post-deployment)
 - [Contact](#handshake-contact)
 
 <!-- About the Project -->
+
 ## :star2: About the Project
 
 <!-- Screenshots -->
@@ -61,7 +62,6 @@ Discord 2.0 with REACT.JS! (Next.js, Tailwind CSS, Typescript, Server create, Fi
 <div align="center" display='flex'>
 <a href="https://clone-sproject.vercel.app"><img width='800rem'  src='https://user-images.githubusercontent.com/99184393/202846650-3208dd18-c2fc-4dc2-bc0e-3f7f91f3f8d6.png' alt='image'/></a>
 </div>
-
 
 ## <a href="https://clone-sproject.vercel.app" target="_blank">LIVE DEMO 💥</a>
 
@@ -222,6 +222,7 @@ Install dependencies
 ```bash
   npm install
 ```
+
 ## Getting Started
 
 Start the server

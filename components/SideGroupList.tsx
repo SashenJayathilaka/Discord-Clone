@@ -1,10 +1,7 @@
 import { motion } from "framer-motion";
 import { shuffle } from "lodash";
-import React from "react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useAuthState } from "react-firebase-hooks/auth";
-
-import { auth } from "../firebase/firebase";
 
 type Props = {
   card: any;
@@ -12,11 +9,11 @@ type Props = {
 };
 
 function SideGroupList({ card, sideBarImage }: Props) {
+  const { data: session }: any = useSession();
   const router = useRouter();
-  const user = useAuthState(auth);
 
   const handleNavigatePage = () => {
-    if (user) {
+    if (session) {
       router.push({
         pathname: `/chat/${card.id}`,
         query: {

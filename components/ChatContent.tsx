@@ -10,14 +10,14 @@ import {
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import toast, { Toaster } from "react-hot-toast";
 
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
-import { auth, firestore, storage } from "../firebase/firebase";
+import { firestore, storage } from "../firebase/firebase";
 import chatSelectFile from "../hooks/chatSelectFile";
 import Chat from "./Chat";
 
@@ -26,9 +26,9 @@ type ChatContentProps = {
 };
 
 const ChatContent: React.FC<ChatContentProps> = ({ docIds }) => {
+  const { data: session }: any = useSession();
   const router = useRouter();
   const { docId } = router.query;
-  const [user] = useAuthState(auth);
   const { selectedFile, setSelectedFile, onSelectedFile } = chatSelectFile();
   const selectedFileRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
@@ -45,11 +45,11 @@ const ChatContent: React.FC<ChatContentProps> = ({ docIds }) => {
         const docRef = await addDoc(
           collection(firestore, "discord", docId as string, "chat"),
           {
-            userId: user?.uid,
-            username: user?.displayName,
+            userId: session?.user?.uid,
+            username: session?.user?.name,
             message: message,
-            profileImage: user?.photoURL,
-            company: user?.email,
+            profileImage: session?.user?.image,
+            company: session?.user?.email,
             timestamp: serverTimestamp() as Timestamp,
           }
         );
