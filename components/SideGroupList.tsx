@@ -20,9 +20,7 @@ function SideGroupList({ card, sideBarImage }: Props) {
           docId: card.id.toString(),
         },
       });
-    } else {
-      router.push("/auth/signin");
-    }
+    } else return;
   };
 
   return (
@@ -31,14 +29,14 @@ function SideGroupList({ card, sideBarImage }: Props) {
         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
           <img
             src={card.data().avatarImage}
-            className="object-cover rounded-full"
+            className="rounded-full w-[57px] h-[57px]"
           />
         </motion.div>
       ) : (
         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
           <img
             src={shuffle(sideBarImage).pop()}
-            className="object-cover rounded-full"
+            className="rounded-full w-[57px] h-[57px]"
           />
         </motion.div>
       )}

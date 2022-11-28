@@ -21,7 +21,7 @@ const Sign: React.FC<SignProps> = () => {
             </button>
             <button
               className="bg-gray-900 text-white w-72 font-medium flex items-center justify-center rounded-full p-4 text-lg hover:shadow-2xl hover:bg-gray-800 focus:outline-none transition duration-200 ease-in-out"
-              onClick={() => signIn("google", { callbackUrl: "/" })}
+              onClick={() => signIn()}
             >
               Open Discord in your browser
             </button>

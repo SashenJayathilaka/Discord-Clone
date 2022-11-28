@@ -46,9 +46,7 @@ const Card: React.FC<CardProps> = ({
           docId: id.toString(),
         },
       });
-    } else {
-      router.push("/auth/signin");
-    }
+    } else return;
   };
 
   return (

@@ -39,11 +39,11 @@ const Discover: React.FC<DiscoverProps> = () => {
     { title: "Movies & TV", icon: <FiMonitor />, isNavigate: false },
   ];
 
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
   const [isShow, setIsShow] = useState(false);
 
   return (
-    <div className="hidden xl:flex flex-col justify-between bg-[#303136] w-[18rem] shrink-0  h-screen sticky top-0">
+    <div className="hidden xl:flex flex-col justify-between bg-[#303136] w-[18rem] shrink-0  h-screen sticky top-0 overflow-y-scroll scrollbar-hide">
       <div className="p-4">
         <p className="text-white font-bold text-[24px]">Discover</p>
 
@@ -71,8 +71,18 @@ const Discover: React.FC<DiscoverProps> = () => {
             className="w-12 h-12 rounded-full"
           />
           <div className=" pl-2">
-            <p>{session?.user?.name}</p>
-            <p className="text-[14px] text-gray-400">#12345</p>
+            {(session?.user?.name?.length as any) < 12 ? (
+              <p>{session?.user?.name}</p>
+            ) : (
+              <p>
+                {session?.user?.name?.slice(0, 12)}
+                {"..."}
+              </p>
+            )}
+
+            <p className="text-[14px] text-gray-400">
+              #{session?.user?.uid?.slice(0, 8)}
+            </p>
           </div>
         </div>
         {isShow ? (

@@ -1,22 +1,15 @@
 import { getSession } from "next-auth/react";
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 import Container from "../components/Container";
+import MainSign from "../components/MainSign";
 
 type Props = {
   session: any;
 };
 
 export default function Home({ session }: Props) {
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!session) {
-      router.push("/auth/signin");
-    } else return;
-  }, [session]);
+  if (!session) return <MainSign />;
 
   return (
     <div>
