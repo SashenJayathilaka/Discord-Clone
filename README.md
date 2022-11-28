@@ -5,7 +5,7 @@
   <h1>Discord 2.0 with REACT.JS</h1>
   
   <p>
-Discord 2.0 with REACT.JS! (Next.js, Tailwind CSS, Typescript, Server create, Firebase v9, Image sharing, Google Authentication, 1-1 Messaging, Real Time Messenger )
+Discord 2.0 with REACT.JS! (Next.js, NextAuth.js v4.17.0, Tailwind CSS, Typescript, Server create, Firebase v9, Image Uploading, Google Authentication, 1-1 Messaging, Real Time Messenger )
   </p>
 
 <!-- Badges -->
@@ -106,6 +106,9 @@ Discord 2.0 with REACT.JS! (Next.js, Tailwind CSS, Typescript, Server create, Fi
                                 <td>
 <a href="#"><img src="https://user-images.githubusercontent.com/99184393/177784603-d69e9d02-721a-4bce-b9b3-949165d2edeb.png" alt="" width="30" height="30" /></a>
         </td>
+                                      <td>
+<a href="#"><img src="https://user-images.githubusercontent.com/99184393/204170976-0e5c6e2a-2b41-483d-adbd-d5d1e40b8d15.png" alt="" width="30" height="30" /></a>
+        </td>
                                 <td>
 <a href="#"><img src="https://www.freepnglogos.com/uploads/discord-logo-png/concours-discord-cartes-voeux-fortnite-france-6.png" alt="" width="30" height="30" /></a>
         </td>
@@ -124,6 +127,13 @@ Discord 2.0 with REACT.JS! (Next.js, Tailwind CSS, Typescript, Server create, Fi
 ### :key: Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
+`GOOGLE_CLIENT_SECRET`
+
+`GOOGLE_CLIENT_ID`
+
+`NEXT_PUBLIC_SECRET`
+
+`NEXTAUTH_URL`
 
 `NEXT_PUBLIC_FIREBASE_API_KEY`
 
