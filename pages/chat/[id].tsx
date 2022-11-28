@@ -1,21 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import Head from "next/head";
-import { onSnapshot, query, collection, orderBy } from "firebase/firestore";
-import { useSession } from "next-auth/react";
+import React, { useEffect, useState } from "react";
 
+import ChatContent from "../../components/ChatContent";
 import Groups from "../../components/Groups";
 import ServerToolBar from "../../components/ServerToolBar";
-import ChatContent from "../../components/ChatContent";
 import { firestore } from "../../firebase/firebase";
-import MainSign from "../../components/MainSign";
 
 type ChatScreenProps = {};
 
 const ChatScreen: React.FC<ChatScreenProps> = () => {
-  const { data: session } = useSession();
   const [cardData, setCardData] = useState<any[]>([]);
-
-  if (!session) return <MainSign />;
 
   useEffect(
     () =>
