@@ -1,13 +1,18 @@
 import React from "react";
 import Head from "next/head";
+import { useSession } from "next-auth/react";
 
 import Groups from "../../components/Groups";
 import Discover from "../../components/Discover";
 import CreateServer from "../../components/Community/CreateServer";
+import MainSign from "../../components/MainSign";
 
 type CreateCommunityProps = {};
 
 const CreateCommunity: React.FC<CreateCommunityProps> = () => {
+  const { data: session } = useSession();
+  if (!session) return <MainSign />;
+
   return (
     <div className="flex bg-[#393943]">
       <Head>
