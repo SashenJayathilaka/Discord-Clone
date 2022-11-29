@@ -2,9 +2,12 @@ import React from "react";
 
 import { FiSearch } from "react-icons/fi";
 
-type HeroProps = {};
+type HeroProps = {
+  setSearchQuery: any;
+  searchQuery: string;
+};
 
-const Hero: React.FC<HeroProps> = () => {
+const Hero: React.FC<HeroProps> = ({ setSearchQuery, searchQuery }) => {
   return (
     <div className="relative  h-[13rem] sm:h-[16rem]  md:h-[19rem] rounded-[0.3rem] z-10">
       <div className="absolute  flex   w-full ">
@@ -25,9 +28,11 @@ const Hero: React.FC<HeroProps> = () => {
         </p>
         <div className="relative flex items-center      mb-4">
           <input
+            value={searchQuery}
             type="search"
             placeholder="Explore servers"
-            className="rounded-[0.3rem] pl-3 placeholder:text-[14px]  md:placeholder:text-[16px] placeholder:text-gray-500 outline-0     py-2 md:py-3 w-[25rem] md:w-[35rem] text-black"
+            className="rounded-[0.3rem] pl-3 placeholder:text-[14px]  md:placeholder:text-[16px] placeholder:text-gray-500 outline-0 py-2 md:py-3 w-[25rem] md:w-[35rem] text-black"
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
           <FiSearch className="absolute   text-black right-2" />
         </div>

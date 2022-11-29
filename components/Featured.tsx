@@ -1,13 +1,15 @@
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { onSnapshot, query, collection, orderBy } from "firebase/firestore";
 
-import Card from "./Card";
 import { firestore } from "../firebase/firebase";
+import Card from "./Card";
 import Spinner from "./Spinner";
 
-type FeaturedProps = {};
+type FeaturedProps = {
+  searchQuery: string;
+};
 
-const Featured: React.FC<FeaturedProps> = () => {
+const Featured: React.FC<FeaturedProps> = ({ searchQuery }) => {
   const [cardData, setCardData] = useState<any[]>([]);
   const [dataLoading, setIsdataLoading] = useState(true);
 
@@ -39,22 +41,53 @@ const Featured: React.FC<FeaturedProps> = () => {
         </p>
       </div>
 
-      {/* Cards*/}
-      {dataLoading ? (
-        <Spinner />
+      {searchQuery ? (
+        <>
+          {/* Cards*/}
+          {dataLoading ? (
+            <Spinner />
+          ) : (
+            <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-1 gap-y-8 xs:gap-x-2 sm:gap-x-4 mb-4">
+              {cardData.map((card) => (
+                <div key={card.id}>
+                  {card
+                    .data()
+                    .serverName.toLowerCase()
+                    .includes(`${searchQuery.toLowerCase()}`) && (
+                    <Card
+                      serverName={card.data().serverName}
+                      avatarImage={card.data().avatarImage}
+                      bannerImage={card.data().bannerImage}
+                      description={card.data().description}
+                      id={card.id}
+                      isShow={searchQuery}
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </>
       ) : (
-        <div className="grid grid-cols-1 xs:grid-cols-2   lg:grid-cols-3 gap-y-8 xs:gap-x-2 sm:gap-x-4 mb-4  ">
-          {cardData.map((card) => (
-            <Card
-              serverName={card.data().serverName}
-              avatarImage={card.data().avatarImage}
-              bannerImage={card.data().bannerImage}
-              description={card.data().description}
-              id={card.id}
-              key={card.id}
-            />
-          ))}
-        </div>
+        <>
+          {/* Cards*/}
+          {dataLoading ? (
+            <Spinner />
+          ) : (
+            <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-y-8 xs:gap-x-2 sm:gap-x-4 mb-4">
+              {cardData.map((card) => (
+                <Card
+                  serverName={card.data().serverName}
+                  avatarImage={card.data().avatarImage}
+                  bannerImage={card.data().bannerImage}
+                  description={card.data().description}
+                  id={card.id}
+                  key={card.id}
+                />
+              ))}
+            </div>
+          )}
+        </>
       )}
     </div>
   );
