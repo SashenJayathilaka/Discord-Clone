@@ -26,7 +26,6 @@ type CardProps = {
   bannerImage: any;
   description: any;
   id: any;
-  isShow?: string;
 };
 
 const Card: React.FC<CardProps> = ({
@@ -35,7 +34,6 @@ const Card: React.FC<CardProps> = ({
   description,
   bannerImage,
   id,
-  isShow,
 }) => {
   const { data: session }: any = useSession();
   const router = useRouter();
@@ -92,7 +90,7 @@ const Card: React.FC<CardProps> = ({
 
         {description.length > 100 ? (
           <p className=" text-gray-400 font-medium text-[15px] pt-1">
-            {isShow ? description : description.slice(0, 100)}
+            {description.slice(0, 100)}
             {"..."}
           </p>
         ) : (
