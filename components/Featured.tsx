@@ -12,6 +12,7 @@ type FeaturedProps = {
 const Featured: React.FC<FeaturedProps> = ({ searchQuery }) => {
   const [cardData, setCardData] = useState<any[]>([]);
   const [dataLoading, setIsdataLoading] = useState(true);
+  const [newQuery, setNewQuery] = useState<any[]>([]);
 
   useEffect(
     () =>
@@ -32,6 +33,33 @@ const Featured: React.FC<FeaturedProps> = ({ searchQuery }) => {
     }
   }, [cardData]);
 
+  const filterSearchParams = () => {
+    cardData.map((searchData) => {
+      if (
+        searchData
+          .data()
+          .serverName.toLowerCase()
+          .includes(`${searchQuery.toLowerCase()}`)
+      ) {
+        newQuery.length = 0;
+        newQuery.push({
+          ...newQuery,
+          serverName: searchData.data().serverName,
+          avatarImage: searchData.data().avatarImage,
+          bannerImage: searchData.data().bannerImage,
+          description: searchData.data().description,
+          id: searchData.id,
+        });
+      } else return;
+    });
+  };
+
+  useEffect(() => {
+    filterSearchParams();
+  }, [searchQuery, cardData]);
+
+  console.log(newQuery);
+
   return (
     <div className="pt-6">
       <div className="text-white pb-4">
@@ -47,23 +75,16 @@ const Featured: React.FC<FeaturedProps> = ({ searchQuery }) => {
           {dataLoading ? (
             <Spinner />
           ) : (
-            <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-1 gap-y-8 xs:gap-x-2 sm:gap-x-4 mb-4">
-              {cardData.map((card) => (
-                <div key={card.id}>
-                  {card
-                    .data()
-                    .serverName.toLowerCase()
-                    .includes(`${searchQuery.toLowerCase()}`) && (
-                    <Card
-                      serverName={card.data().serverName}
-                      avatarImage={card.data().avatarImage}
-                      bannerImage={card.data().bannerImage}
-                      description={card.data().description}
-                      id={card.id}
-                      isShow={searchQuery}
-                    />
-                  )}
-                </div>
+            <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-y-8 xs:gap-x-2 sm:gap-x-4 mb-4">
+              {newQuery.map((data) => (
+                <Card
+                  serverName={data.serverName}
+                  avatarImage={data.avatarImage}
+                  bannerImage={data.bannerImage}
+                  description={data.description}
+                  id={data.id}
+                  key={data.id}
+                />
               ))}
             </div>
           )}
