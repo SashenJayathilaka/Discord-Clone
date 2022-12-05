@@ -1,11 +1,8 @@
-import { doc, getDoc, setDoc } from "firebase/firestore";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
-import { useState, useEffect } from "react";
 
 import Container from "../components/Container";
 import MainSign from "../components/MainSign";
-import { firestore } from "../firebase/firebase";
 
 type Props = {
   session: any;
@@ -13,38 +10,6 @@ type Props = {
 
 export default function Home({ session }: Props) {
   if (!session) return <MainSign />;
-
-  const [userCreates, setUserCreate] = useState<boolean>(false);
-
-  const getUserData = async () => {
-    if (session) {
-      try {
-        const docRef = doc(firestore, "users", session?.user?.uid);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          console.log("User Already Created");
-        } else {
-          setUserCreate(true);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    } else return;
-  };
-
-  const userCreate = async (session: any) => {
-    const userDocRef = doc(firestore, "users", session?.user?.uid);
-    await setDoc(userDocRef, JSON.parse(JSON.stringify(session)));
-  };
-
-  useEffect(() => {
-    getUserData();
-
-    if (userCreates) {
-      userCreate(session);
-    } else return;
-  }, [session, firestore, userCreates]);
 
   return (
     <div>
@@ -57,7 +22,7 @@ export default function Home({ session }: Props) {
         />
       </Head>
       <main>
-        <Container />
+        <Container session={session} />
       </main>
     </div>
   );
