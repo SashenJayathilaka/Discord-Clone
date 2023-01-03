@@ -183,7 +183,7 @@ npx tailwindcss init -p
 Add the paths to all of your template files in your `tailwind.config.js` file.
 <br>
 
-```
+```js
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
@@ -200,7 +200,7 @@ module.exports = {
 
 Add the `@tailwind` directives for each of Tailwind’s layers to your `./styles/globals.css` file.
 
-```
+```css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
